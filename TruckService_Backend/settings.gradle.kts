@@ -1,3 +1,1 @@
-
-rootProject.name = "TruckService_Backend"
-
+rootProject.name = "lupinespace.com.truckservice_backend"
