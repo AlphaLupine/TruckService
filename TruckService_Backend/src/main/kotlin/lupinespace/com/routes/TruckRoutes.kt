@@ -4,8 +4,9 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import lupinespace.com.models.*
 import io.ktor.server.routing.*
+import lupinespace.com.data.models.Truck
+import lupinespace.com.data.models.truckStorage
 
 fun Route.truckRouting() {
     route("/trucks") {
