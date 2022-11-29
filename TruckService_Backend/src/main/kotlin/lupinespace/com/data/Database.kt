@@ -10,23 +10,10 @@ private val database = client.getDatabase("TruckService")
 
 private val userAccounts = database.getCollection<UserAccount>("Users")
 
-suspend fun getPartialUserById(id: Int): PartialUser? {
+suspend fun getPartialUserById(id: String): PartialUser? {
     val userAccount = userAccounts.findOneById(id) ?: return null
     return PartialUser(
         username = userAccount.username,
         role = userAccount.role
     )
 }
-
-/*suspend fun getPartialUsers(): PartialUser? {
-    val userAccountCollection = userAccounts
-
-    val partialUsers = listOf<PartialUser>()
-    userAccountCollection.
-
-
-    return PartialUser(
-        username = userAccount.username,
-        role = userAccount.role
-    )
-}*/

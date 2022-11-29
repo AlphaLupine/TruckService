@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserRequest(
-    val id: Int?
+    val id: String?
 )
