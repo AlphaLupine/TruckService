@@ -1,4 +1,4 @@
-package lupinespace.com.models
+package lupinespace.com.data.models
 
 import kotlinx.serialization.Serializable
 

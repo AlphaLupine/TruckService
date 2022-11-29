@@ -1,9 +1,9 @@
-package lupinespace.com.models
+package lupinespace.com.data.models
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class User(
+data class AuthUser(
     val username: String,
     val role: String,
     val authToken: String
