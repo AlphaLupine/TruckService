@@ -2,6 +2,7 @@ package lupinespace.com.data
 
 import lupinespace.com.data.models.PartialUser
 import lupinespace.com.data.models.UserAccount
+import org.bson.types.ObjectId
 import org.litote.kmongo.coroutine.*
 import org.litote.kmongo.reactivestreams.*
 
@@ -16,4 +17,14 @@ suspend fun getPartialUserById(id: String): PartialUser? {
         username = userAccount.username,
         role = userAccount.role
     )
+}
+
+suspend fun createOrUpdateUserById(user: UserAccount): Boolean {
+    val doesExist = userAccounts.findOneById(user.id) != null
+    return if (doesExist) {
+        userAccounts.updateOneById(user.id, user).wasAcknowledged()
+    } else {
+        user.id = ObjectId().toString()
+        userAccounts.insertOne(user).wasAcknowledged()
+    }
 }

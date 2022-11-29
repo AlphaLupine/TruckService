@@ -6,6 +6,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import lupinespace.com.data.models.*
 import io.ktor.server.routing.*
+import lupinespace.com.data.createOrUpdateUserById
 import lupinespace.com.data.getPartialUserById
 import lupinespace.com.data.models.UserAccount
 
@@ -21,6 +22,22 @@ fun Route.userRouting() {
                 status = HttpStatusCode.NotFound
             )
             call.respond(user)
+        }
+    }
+
+    route("/create-or-update-user") {
+        post {
+            val user = call.receive<UserAccount>()
+            val operation = createOrUpdateUserById(user)
+            if(operation) return@post call.respondText(
+                "Successfully created/updated user",
+                status = HttpStatusCode.Created
+            ) else {
+                return@post call.respondText(
+                    "Unable to create/update user",
+                    status = HttpStatusCode.ExpectationFailed
+                )
+            }
         }
     }
 }
