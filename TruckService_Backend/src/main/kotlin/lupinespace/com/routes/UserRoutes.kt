@@ -19,7 +19,7 @@ fun Route.userRouting() {
             )
             val user = getPartialUserById(userId) ?: return@get call.respondText(
                 "No user found",
-                status = HttpStatusCode.NotFound
+                status = HttpStatusCode.OK
             )
             call.respond(user)
         }
