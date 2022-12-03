@@ -11,5 +11,3 @@ data class Truck(
     val vrm: String,
     val model: String
 )
-
-val truckStorage = mutableListOf<Truck>() //TODO: Implement a database
