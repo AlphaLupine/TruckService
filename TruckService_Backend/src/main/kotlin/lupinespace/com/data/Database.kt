@@ -1,6 +1,5 @@
 package lupinespace.com.data
 
-import com.mongodb.reactivestreams.client.MongoCollection
 import lupinespace.com.data.models.PartialUser
 import lupinespace.com.data.models.Truck
 import lupinespace.com.data.models.UserAccount
