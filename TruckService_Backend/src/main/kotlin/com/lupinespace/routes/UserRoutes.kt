@@ -9,19 +9,26 @@ import com.lupinespace.data.createOrUpdateUserById
 import com.lupinespace.data.getPartialUserById
 import com.lupinespace.data.models.UserAccount
 import com.lupinespace.data.models.receivables.UserRequest
+import io.ktor.server.auth.*
+import io.ktor.server.auth.jwt.*
 
 fun Route.userRouting() {
-    route("/get-partial-user") {
-        get {
-            val userId = call.receive<UserRequest>().id ?: return@get call.respondText(
-                "Received no ID",
-                status = HttpStatusCode.BadRequest
-            )
-            val user = getPartialUserById(userId) ?: return@get call.respondText(
-                "No user found",
-                status = HttpStatusCode.OK
-            )
-            call.respond(user)
+    authenticate("auth-jwt") {
+        route("/get-partial-user") {
+            get {
+
+                val principal = call.principal<JWTPrincipal>()
+
+                val userId = call.receive<UserRequest>().id ?: return@get call.respondText(
+                    "Received no ID",
+                    status = HttpStatusCode.BadRequest
+                )
+                val user = getPartialUserById(userId) ?: return@get call.respondText(
+                    "No user found",
+                    status = HttpStatusCode.OK
+                )
+                call.respond(user)
+            }
         }
     }
 

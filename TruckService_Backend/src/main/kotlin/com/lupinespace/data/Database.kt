@@ -21,6 +21,10 @@ suspend fun getPartialUserById(id: String): PartialUser? {
     )
 }
 
+suspend fun getUserAccountByUsername(username: String): UserAccount? {
+    return userAccounts.findOne("{username:'%s'}".format(username))
+}
+
 suspend fun createOrUpdateUserById(user: UserAccount): Boolean {
     val doesExist = userAccounts.findOneById(user.id) != null
     return if (doesExist) {
