@@ -1,4 +1,4 @@
-package lupinespace.com.data.models.receivables
+package com.lupinespace.data.models.receivables
 
 import kotlinx.serialization.Serializable
 

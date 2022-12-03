@@ -1,14 +1,14 @@
-package lupinespace.com.routes
+package com.lupinespace.routes
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import lupinespace.com.data.createOrUpdateUserById
-import lupinespace.com.data.getPartialUserById
-import lupinespace.com.data.models.UserAccount
-import lupinespace.com.data.models.receivables.UserRequest
+import com.lupinespace.data.createOrUpdateUserById
+import com.lupinespace.data.getPartialUserById
+import com.lupinespace.data.models.UserAccount
+import com.lupinespace.data.models.receivables.UserRequest
 
 fun Route.userRouting() {
     route("/get-partial-user") {

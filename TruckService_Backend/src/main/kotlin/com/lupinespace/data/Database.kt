@@ -1,8 +1,8 @@
-package lupinespace.com.data
+package com.lupinespace.data
 
-import lupinespace.com.data.models.PartialUser
-import lupinespace.com.data.models.Truck
-import lupinespace.com.data.models.UserAccount
+import com.lupinespace.data.models.PartialUser
+import com.lupinespace.data.models.Truck
+import com.lupinespace.data.models.UserAccount
 import org.bson.types.ObjectId
 import org.litote.kmongo.coroutine.*
 import org.litote.kmongo.reactivestreams.*

@@ -1,13 +1,15 @@
-package lupinespace.com.data.models
+package com.lupinespace.data.models
 
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId
 import org.bson.types.ObjectId
 
 @Serializable
-data class Truck(
+data class UserAccount(
     @BsonId
     var id: String = ObjectId().toString(),
-    val vrm: String,
-    val model: String
+    var username: String,
+    var role: String,
+    var password: String, //TODO: Hash these values
+    var authToken: String?
 )

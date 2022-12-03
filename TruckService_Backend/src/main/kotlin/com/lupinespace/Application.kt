@@ -1,10 +1,12 @@
-package lupinespace.com
+package com.lupinespace
 
 
+import com.lupinespace.plugins.configureRouting
+import com.lupinespace.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import lupinespace.com.plugins.*
+import com.lupinespace.plugins.*
 
 fun main() {
 

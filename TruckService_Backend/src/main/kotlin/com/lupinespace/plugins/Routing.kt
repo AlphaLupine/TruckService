@@ -1,9 +1,9 @@
-package lupinespace.com.plugins
+package com.lupinespace.plugins
 
 import io.ktor.server.routing.*
 import io.ktor.server.application.*
-import lupinespace.com.routes.truckRouting
-import lupinespace.com.routes.userRouting
+import com.lupinespace.routes.truckRouting
+import com.lupinespace.routes.userRouting
 
 fun Application.configureRouting() {
 

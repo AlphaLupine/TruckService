@@ -1,4 +1,4 @@
-package lupinespace.com.data.models
+package com.lupinespace.data.models
 
 import kotlinx.serialization.Serializable
 import org.bson.codecs.pojo.annotations.BsonId

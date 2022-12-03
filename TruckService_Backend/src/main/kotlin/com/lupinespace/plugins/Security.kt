@@ -1,4 +1,4 @@
-package lupinespace.com.plugins
+package com.lupinespace.plugins
 
 import io.ktor.server.auth.*
 import io.ktor.util.*
