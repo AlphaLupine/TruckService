@@ -1,6 +1,8 @@
 package lupinespace.com.data
 
+import com.mongodb.reactivestreams.client.MongoCollection
 import lupinespace.com.data.models.PartialUser
+import lupinespace.com.data.models.Truck
 import lupinespace.com.data.models.UserAccount
 import org.bson.types.ObjectId
 import org.litote.kmongo.coroutine.*
@@ -10,6 +12,7 @@ private val client = KMongo.createClient(String.format("mongodb+srv://lupines-sp
 private val database = client.getDatabase("TruckService")
 
 private val userAccounts = database.getCollection<UserAccount>("Users")
+private val trucks = database.getCollection<Truck>("Trucks")
 
 suspend fun getPartialUserById(id: String): PartialUser? {
     val userAccount = userAccounts.findOneById(id) ?: return null
@@ -28,3 +31,18 @@ suspend fun createOrUpdateUserById(user: UserAccount): Boolean {
         userAccounts.insertOne(user).wasAcknowledged()
     }
 }
+
+suspend fun getTrucks(): List<Truck> {
+    return trucks.find().toList()
+}
+
+suspend fun createOrUpdateTruckById(truck: Truck): Boolean {
+    val doesExist = trucks.findOneById(truck.id) != null
+    return if (doesExist) {
+        trucks.updateOneById(truck.id, truck).wasAcknowledged()
+    } else {
+        truck.id = ObjectId().toString()
+        trucks.insertOne(truck).wasAcknowledged()
+    }
+}
+

@@ -5,40 +5,33 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import lupinespace.com.data.createOrUpdateTruckById
+import lupinespace.com.data.getTrucks
 import lupinespace.com.data.models.Truck
-import lupinespace.com.data.models.truckStorage
 
 fun Route.truckRouting() {
-    route("/trucks") {
+    route("/get-trucks") {
         get {
-            if(truckStorage.isNotEmpty()) {
-                call.respond(truckStorage)
-            } else {
-                call.respondText ( "No trucks present", status = HttpStatusCode.OK )
-            }
+            val trucks = getTrucks()
+            if(trucks.isEmpty()) return@get call.respondText(
+                "No trucks found",
+                status = HttpStatusCode.OK
+            )
+            call.respond(trucks)
         }
-        get("{vrm?}") {
-            val vrm = call.parameters["vrm"] ?: return@get call.respondText(
-                "Missing VRM",
-                status = HttpStatusCode.BadRequest
-            )
-            val truck = truckStorage.find{ it.vrm == vrm } ?: return@get call.respondText(
-                "Unable to find truck with this vrm",
-                status = HttpStatusCode.NotFound
-            )
-            call.respond(truck)
-        } //TODO: Fix this, supplying a vrm as a parameter in the URL will ALWAYS return ALL trucks in the list
+    }
+    route("/create-or-update-truck") {
         post {
             val truck = call.receive<Truck>()
-            truckStorage.add(truck)
-            call.respondText("Successfully stored truck", status = HttpStatusCode.Created)
-        }
-        delete("{vrm?}") {
-            val vrm = call.parameters["vrm"] ?: return@delete call.respond(HttpStatusCode.BadRequest)
-            if(truckStorage.removeIf { it.vrm == vrm }) {
-                call.respondText("Truck removed successfully", status = HttpStatusCode.Accepted)
-            } else {
-                call.respondText("Not Found", status = HttpStatusCode.NotFound)
+            val operation = createOrUpdateTruckById(truck)
+            if(operation) return@post call.respondText(
+                "Successfully created/updated truck",
+                status = HttpStatusCode.Created
+            ) else {
+                return@post call.respondText(
+                    "Unable to create/update truck",
+                    status = HttpStatusCode.ExpectationFailed
+                )
             }
         }
     }
