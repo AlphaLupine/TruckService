@@ -9,10 +9,10 @@ plugins {
                 id("org.jetbrains.kotlin.plugin.serialization") version "1.7.22"
 }
 
-group = "lupinespace.com"
+group = "com.lupinespace"
 version = "0.0.1"
 application {
-    mainClass.set("lupinespace.com.ApplicationKt")
+    mainClass.set("com.lupinespace.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
