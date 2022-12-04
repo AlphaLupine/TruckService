@@ -12,8 +12,6 @@ import io.ktor.server.response.*
 import io.ktor.server.request.*
 
 fun Application.configureSecurity() {
-
-    //TODO: Correct bug in authentication - users with a valid token are still challenged
     
     authentication {
             jwt("auth-jwt") {
@@ -21,7 +19,7 @@ fun Application.configureSecurity() {
                 realm = System.getenv("JWT_REALM")
                 verifier(
                     JWT
-                        .require(Algorithm.HMAC256("secret"))
+                        .require(Algorithm.HMAC256(System.getenv("JWT_SECRET")))
                         .withAudience(jwtAudience)
                         .withIssuer(System.getenv("JWT_ISSUER"))
                         .build()
